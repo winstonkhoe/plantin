@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/plant_shop_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    card_view:contentPadding="20dp"
+    card_view:cardElevation="20dp"
+    card_view:cardBackgroundColor="#c2d6d7"
+    android:layout_margin="60dp">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+        <ImageView
+            android:id="@+id/shop_image"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            card_view:srcCompat="@drawable/logo" />
+        <TextView
+            android:id="@+id/shop_name_txt"
+            android:textSize="25dp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_gravity="left"
+            android:textColor="#4b5556"
+            android:text="Hello Nursery"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/shop_loc_txt"
+            android:textSize="20dp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_gravity="left"
+            android:textColor="#4b5556"
+            android:text="DKI JAKARTA"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
