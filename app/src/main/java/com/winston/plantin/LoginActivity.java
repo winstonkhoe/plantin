@@ -1,12 +1,18 @@
 package com.winston.plantin;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.winston.plantin.database.PlantinDB;
 import com.winston.plantin.model.User;
@@ -17,6 +23,9 @@ public class LoginActivity extends Activity {
     private Button btnSignIn;
     private TextView txtSignUp;
     private PlantinDB db;
+    private NotificationManagerCompat notificationManager;
+    private NotificationCompat.Builder builder;
+
 
     private void initComponents(){
         db = new PlantinDB(this);
@@ -32,6 +41,23 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         initComponents();
         setButton();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("WELCOME_NOTIFICATION", "WELCOME", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void welcomeNotification() {
+        notificationManager = NotificationManagerCompat.from(LoginActivity.this);
+        builder = new NotificationCompat.Builder(this, "WELCOME_NOTIFICATION")
+                .setSmallIcon(R.drawable.logo_plantin)
+                .setContentTitle("WELCOME")
+                .setContentText("Welcome to Plantin!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+        notificationManager.notify(1, builder.build());
     }
 
     public void setButton(){
@@ -54,6 +80,7 @@ public class LoginActivity extends Activity {
             } else {
                 Session.getInstance().setUser(user);
                 Intent intent = new Intent(this, HomeActivity.class);
+                welcomeNotification();
                 startActivity(intent);
             }
         }

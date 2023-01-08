@@ -11,6 +11,8 @@ import com.winston.plantin.model.PlantShop;
 import com.winston.plantin.model.User;
 import com.winston.plantin.utility.Session;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class PlantinDB {
