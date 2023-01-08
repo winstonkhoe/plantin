@@ -53,8 +53,16 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.theme_btn:
                 toggleTheme();
                 break;
+            case R.id.setting_btn:
+                setting();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setting() {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -5,6 +5,8 @@
         android:title="Favorite Shops" />
     <item android:id="@+id/logout_btn"
         android:title="Logout"/>
+    <item android:id="@+id/setting_btn"
+        android:title="Settings"/>
     <item android:id="@+id/theme_btn"
         android:icon="@drawable/ic_baseline_light_mode_24"
         android:title="Light Theme"
