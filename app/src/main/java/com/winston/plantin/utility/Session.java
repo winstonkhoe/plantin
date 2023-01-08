@@ -1,5 +1,7 @@
 package com.winston.plantin.utility;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.winston.plantin.model.User;
 
 public class Session {
@@ -25,4 +27,5 @@ public class Session {
         user = null;
     }
 
+    public boolean isNight() {return (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);}
 }

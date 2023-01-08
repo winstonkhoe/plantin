@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.winston.plantin.database.PlantinDB;
 import com.winston.plantin.model.PlantShop;
@@ -110,15 +111,38 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout_btn:
                 logout();
                 break;
             case R.id.favorite_page_btn:
                 redirect();
                 break;
+            case R.id.theme_btn:
+                toggleTheme();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem themeBtn = menu.findItem(R.id.theme_btn);
+        if (Session.getInstance().isNight()) {
+            themeBtn.setIcon(R.drawable.ic_baseline_mode_night_24);
+        } else {
+            themeBtn.setIcon(R.drawable.ic_baseline_light_mode_24);
+        }
+        return true;
+    }
+
+    private void toggleTheme() {
+        if (Session.getInstance().isNight()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
     }
 
     private void redirect(){
