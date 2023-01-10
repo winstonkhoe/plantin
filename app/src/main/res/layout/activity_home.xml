@@ -16,7 +16,7 @@
         android:textAllCaps="true"
         android:letterSpacing="0.1"
         android:layout_gravity="left"
-        android:textColor="#4b5556"
+
         android:text="All Shops"
         android:textStyle="bold"
         android:layout_marginTop="30dp"
