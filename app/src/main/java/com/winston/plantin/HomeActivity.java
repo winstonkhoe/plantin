@@ -108,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView(ArrayList<PlantShop> data, RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(new RecyclerAdapter(data, this, R.layout.item_full_size));
     }
 }
