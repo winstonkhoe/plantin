@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                 User user = new User(null, name, email, password, phone);
                 db.insertUser(user);
                 sendMessage(phone);
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 Session.getInstance().setUser(db.getUserByEmailAndPassword(email, password));
                 startActivity(intent);
             } else {

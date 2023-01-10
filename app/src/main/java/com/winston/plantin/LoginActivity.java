@@ -82,7 +82,7 @@ public class LoginActivity extends Activity {
                 Toast.makeText(this, "Email doesn't exists or wrong password !", Toast.LENGTH_SHORT).show();
             } else {
                 Session.getInstance().setUser(user);
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 if (Session.getInstance().isEnableNotification(this)) {
                     welcomeNotification();
                 }
