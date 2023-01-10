@@ -6,13 +6,16 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.LongDef;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.preference.PreferenceManager;
 
 import com.winston.plantin.database.PlantinDB;
 import com.winston.plantin.model.User;
@@ -80,7 +83,9 @@ public class LoginActivity extends Activity {
             } else {
                 Session.getInstance().setUser(user);
                 Intent intent = new Intent(this, HomeActivity.class);
-                welcomeNotification();
+                if (Session.getInstance().isEnableNotification(this)) {
+                    welcomeNotification();
+                }
                 startActivity(intent);
             }
         }

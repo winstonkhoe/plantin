@@ -3,13 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="@string/key_notifications"
-        android:title="Enable message notifications"/>
+        android:title="Enable notifications"
+        android:summary="Enable/disable app notifications!"/>
 
-    <Preference
-        android:key="@string/key_feedback"
-        android:title="Send feedback"
-        android:summary="Report technical issues or suggest new features"/>
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/key_theme"
+        android:icon="@drawable/ic_baseline_light_mode_24"
+        android:title="Enable night theme"
+        android:summary="Change your app theme to Day/Night theme!"/>
 
 </PreferenceScreen>

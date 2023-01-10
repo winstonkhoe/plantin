@@ -1,7 +1,11 @@
 package com.winston.plantin.utility;
 
-import androidx.appcompat.app.AppCompatDelegate;
+import android.content.Context;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.PreferenceManager;
+
+import com.winston.plantin.R;
 import com.winston.plantin.model.User;
 
 public class Session {
@@ -27,5 +31,16 @@ public class Session {
         user = null;
     }
 
-    public boolean isNight() {return (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);}
+    public void loadTheme(Context ctx) {
+        boolean isNight = PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(ctx.getString(R.string.key_theme), false);
+        if (isNight) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+    }
+
+    public boolean isEnableNotification(Context ctx) {
+        return PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(ctx.getString(R.string.key_notifications), false);
+    }
 }
