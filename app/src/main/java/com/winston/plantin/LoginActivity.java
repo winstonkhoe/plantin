@@ -44,7 +44,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         initComponents();
         setButton();
-
+        Session.getInstance().loadTheme(this);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel("WELCOME_NOTIFICATION", "WELCOME", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);

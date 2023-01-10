@@ -14,6 +14,15 @@ public class SettingFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
         setPreferencesFromResource(R.xml.setting_preferences, rootKey);
         SwitchPreferenceCompat themePreference = findPreference(getString(R.string.key_theme));
+        Session.getInstance().loadTheme(this.getActivity());
+
+        if (Session.getInstance().isNight(this.getActivity())) {
+            themePreference.setIcon(R.drawable.ic_baseline_mode_night_24);
+            themePreference.setTitle("Night");
+        } else {
+            themePreference.setIcon(R.drawable.ic_baseline_light_mode_24);
+            themePreference.setTitle("Day");
+        }
 
         // toggle theme
         if (themePreference != null) {
@@ -26,7 +35,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
                     preference.setIcon(R.drawable.ic_baseline_light_mode_24);
                     preference.setTitle("Day");
                 }
-                Session.getInstance().loadTheme(this.getActivity());
+                Session.getInstance().changeTheme(isNight);
                 return true;
             });
         }
