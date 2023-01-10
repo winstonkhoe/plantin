@@ -1,7 +1,7 @@
 package com.winston.plantin.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.winston.plantin.DetailActivity;
 import com.winston.plantin.R;
 import com.winston.plantin.database.PlantinDB;
+import com.winston.plantin.fragment.DetailFragment;
+import com.winston.plantin.fragment.FavoriteFragment;
 import com.winston.plantin.model.PlantShop;
 import com.squareup.picasso.Picasso;
+import com.winston.plantin.utility.RecyclerListener;
 
 import java.util.ArrayList;
 
@@ -22,9 +24,11 @@ public class FavoriteAdapter extends BaseAdapter {
     private Context ctx;
     private PlantinDB db;
     private ArrayList<PlantShop> favoriteShop;
+    private RecyclerListener listener;
 
-    public FavoriteAdapter(Context ctx){
+    public FavoriteAdapter(Context ctx, RecyclerListener listener){
         this.ctx = ctx;
+        this.listener = listener;
         db = new PlantinDB(ctx);
         favoriteShop = db.getAllFavoriteShopsByUserID();
     }
@@ -59,9 +63,11 @@ public class FavoriteAdapter extends BaseAdapter {
         shopName.setText(shop.getName());
         int shopID = shop.getShopID();
         convertView.setOnClickListener(v->{
-            Intent detail = new Intent(ctx, DetailActivity.class);
-            detail.putExtra("shopID", shopID);
-            ctx.startActivity(detail);
+            Bundle bundle = new Bundle();
+            bundle.putInt("shopID", shopID);
+            DetailFragment favFrag = new DetailFragment();
+            favFrag.setArguments(bundle);
+            listener.onItemClick(favFrag);
         });
 
         return convertView;

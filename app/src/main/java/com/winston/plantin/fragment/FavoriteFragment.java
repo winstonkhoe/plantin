@@ -3,6 +3,8 @@ package com.winston.plantin.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -13,13 +15,14 @@ import android.widget.ListView;
 import com.winston.plantin.R;
 import com.winston.plantin.adapter.FavoriteAdapter;
 import com.winston.plantin.database.PlantinDB;
+import com.winston.plantin.utility.RecyclerListener;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FavoriteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements RecyclerListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,9 +75,28 @@ public class FavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         db = new PlantinDB(this.getContext());
 
-        FavoriteAdapter favAdapter = new FavoriteAdapter(this.getContext());
+        FavoriteAdapter favAdapter = new FavoriteAdapter(this.getContext(), this);
         ListView favList = view.findViewById(R.id.favorite_list_view);
         favList.setAdapter(favAdapter);
         return view;
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+        );
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
+
+
+    @Override
+    public void onItemClick(Fragment fragment) {
+        replaceFragment(fragment);
     }
 }

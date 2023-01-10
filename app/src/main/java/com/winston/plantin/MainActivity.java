@@ -1,7 +1,12 @@
 package com.winston.plantin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -48,6 +53,43 @@ public class MainActivity extends AppCompatActivity {
         );
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout_btn:
+                logout();
+                break;
+            case R.id.favorite_page_btn:
+                redirect();
+                break;
+            case R.id.setting_btn:
+                setting();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setting() {
+        replaceFragment(new SettingFragment());
+    }
+
+    private void redirect(){
+        replaceFragment(new FavoriteFragment());
+    }
+
+    private void logout(){
+        Session.getInstance().logout();
+        Intent login = new Intent(this, LoginActivity.class);
+        startActivity(login);
     }
 
 }

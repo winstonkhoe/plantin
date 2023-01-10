@@ -3,6 +3,8 @@ package com.winston.plantin.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +17,7 @@ import com.winston.plantin.adapter.RecyclerAdapter;
 import com.winston.plantin.database.PlantinDB;
 import com.winston.plantin.model.PlantShop;
 import com.winston.plantin.utility.APIManager;
+import com.winston.plantin.utility.RecyclerListener;
 
 import java.util.ArrayList;
 
@@ -23,7 +26,7 @@ import java.util.ArrayList;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RecyclerListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,6 +96,24 @@ public class HomeFragment extends Fragment {
 
     private void setRecyclerView(ArrayList<PlantShop> data, RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new RecyclerAdapter(data, this.getContext(), R.layout.item_full_size));
+        recyclerView.setAdapter(new RecyclerAdapter(data, this.getContext(), R.layout.item_full_size, this));
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+        );
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onItemClick(Fragment fragment) {
+        replaceFragment(fragment);
     }
 }

@@ -1,7 +1,7 @@
 package com.winston.plantin.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +11,11 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.winston.plantin.DetailActivity;
 import com.winston.plantin.R;
+import com.winston.plantin.fragment.DetailFragment;
 import com.winston.plantin.model.PlantShop;
 import com.squareup.picasso.Picasso;
+import com.winston.plantin.utility.RecyclerListener;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.HView>
         private Context context;
         private ArrayList<PlantShop> PlantShop;
         private int template;
-
+        private RecyclerListener listener;
         // View Holder class which
         // extends RecyclerView.ViewHolder
         public class HView extends RecyclerView.ViewHolder {
@@ -50,11 +51,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.HView>
 
         // Constructor for HomeAdapter class
         // which takes a PlantShop of String type
-        public RecyclerAdapter(ArrayList<PlantShop> horizontalList, Context context, int template)
+        public RecyclerAdapter(ArrayList<PlantShop> horizontalList, Context context, int template, RecyclerListener listener)
         {
             this.context = context;
             this.PlantShop = horizontalList;
             this.template = template;
+            this.listener = listener;
         }
 
         // Override onCreateViewHolder which deals
@@ -84,9 +86,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.HView>
         holder.shopLocation.setText(PlantShop.get(position).getLocation());
         int shopID = PlantShop.get(position).getShopID();
         holder.plantShopCard.setOnClickListener(v -> {
-            Intent detail = new Intent(context, DetailActivity.class);
-            detail.putExtra("shopID", shopID);
-            context.startActivity(detail);
+            Bundle bundle = new Bundle();
+            bundle.putInt("shopID", shopID);
+            DetailFragment detailFrag = new DetailFragment();
+            detailFrag.setArguments(bundle);
+            listener.onItemClick(detailFrag);
         });
     }
 
