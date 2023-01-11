@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,8 +137,7 @@ public class DetailFragment extends Fragment {
         shopImage = view.findViewById(R.id.shop_image);
         mapBtn = view.findViewById(R.id.map_btn);
         favBtn = view.findViewById(R.id.fav_btn);
-        Intent detail = getActivity().getIntent();
-        currShopID = detail.getIntExtra("shopID", 1);
+        currShopID = getArguments().getInt("shopID", 1);
         currPlantShop = db.getPlantShopById(currShopID);
 
         loadData();

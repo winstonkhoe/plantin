@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".fragment.DetailFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -18,7 +21,7 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:src="@drawable/logo" />
@@ -84,5 +87,5 @@
             android:textColor="@color/white"/>
 
     </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>
