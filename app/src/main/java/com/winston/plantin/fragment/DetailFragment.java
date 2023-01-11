@@ -1,8 +1,13 @@
 package com.winston.plantin.fragment;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import com.winston.plantin.R;
 import com.winston.plantin.database.PlantinDB;
 import com.winston.plantin.model.PlantShop;
+import com.winston.plantin.utility.Session;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +53,11 @@ public class DetailFragment extends Fragment {
     private int currShopID;
     private PlantShop currPlantShop;
     private boolean initialFavState;
+
+
+    private NotificationManagerCompat notificationManager;
+    private NotificationCompat.Builder builder;
+
 
     public DetailFragment() {
         // Required empty public constructor
@@ -97,10 +108,16 @@ public class DetailFragment extends Fragment {
         if(favorite == true)
         {
             db.insertFavorite(currShopID);
+            if (Session.getInstance().isEnableNotification(this.getContext())) {
+                addfavNotification();
+            }
         }
         else
         {
             db.removeFavorite(currShopID);
+            if (Session.getInstance().isEnableNotification(this.getContext())) {
+                deletefavNotification();
+            }
         }
     }
 
@@ -140,6 +157,11 @@ public class DetailFragment extends Fragment {
         currShopID = getArguments().getInt("shopID", 1);
         currPlantShop = db.getPlantShopById(currShopID);
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("FAVOURITE_NOTIFICATION", "FAVOURITE", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = getContext().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
         loadData();
         return view;
     }
@@ -155,5 +177,27 @@ public class DetailFragment extends Fragment {
         );
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void addfavNotification() {
+        notificationManager = NotificationManagerCompat.from(this.getContext());
+        builder = new NotificationCompat.Builder(this.getContext(), "FAVOURITE_NOTIFICATION")
+                .setSmallIcon(R.drawable.logo_plantin)
+                .setContentTitle("FAVOURITE")
+                .setContentText("You have add " + shopName.getText() + " as one of your favourite shop")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+        notificationManager.notify(1, builder.build());
+    }
+
+    private void deletefavNotification() {
+        notificationManager = NotificationManagerCompat.from(this.getContext());
+        builder = new NotificationCompat.Builder(this.getContext(), "FAVOURITE_NOTIFICATION")
+                .setSmallIcon(R.drawable.logo_plantin)
+                .setContentTitle("FAVOURITE")
+                .setContentText("You have removed " + shopName.getText() + " from your favourite shop")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+        notificationManager.notify(1, builder.build());
     }
 }
