@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -14,8 +15,12 @@ import android.widget.ListView;
 
 import com.winston.plantin.R;
 import com.winston.plantin.adapter.FavoriteAdapter;
+import com.winston.plantin.adapter.RecyclerAdapter;
 import com.winston.plantin.database.PlantinDB;
+import com.winston.plantin.model.PlantShop;
 import com.winston.plantin.utility.RecyclerListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,11 +79,15 @@ public class FavoriteFragment extends Fragment implements RecyclerListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         db = new PlantinDB(this.getContext());
-
+        favoriteRecyclerView = (RecyclerView) view.findViewById(R.id.favorite_recycler_view);
         FavoriteAdapter favAdapter = new FavoriteAdapter(this.getContext(), this);
-        ListView favList = view.findViewById(R.id.favorite_list_view);
-        favList.setAdapter(favAdapter);
+        setRecyclerView(db.getAllFavoriteShopsByUserID(), favoriteRecyclerView);
         return view;
+    }
+
+    private void setRecyclerView(ArrayList<PlantShop> data, RecyclerView recyclerView) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(new RecyclerAdapter(data, this.getContext(), R.layout.item_full_size, this));
     }
 
     public void replaceFragment(Fragment fragment) {
