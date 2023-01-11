@@ -3,6 +3,4 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/logout_btn"
         android:title="Logout"/>
-    <item android:id="@+id/setting_btn"
-        android:title="Settings"/>
 </menu>

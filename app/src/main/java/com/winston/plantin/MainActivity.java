@@ -74,15 +74,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout_btn:
                 logout();
                 break;
-            case R.id.setting_btn:
-                setting();
-                break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setting() {
-        replaceFragment(new SettingFragment());
     }
 
     private void logout(){
