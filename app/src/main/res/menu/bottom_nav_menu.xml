@@ -3,7 +3,8 @@
 
     <item android:title=""
         android:icon="@drawable/ic_baseline_home_24"
-        android:id="@+id/home" />
+        android:id="@+id/home"
+        />
     <item android:title=""
         android:icon="@drawable/ic_baseline_favorite_24"
         android:id="@+id/favorite" />
