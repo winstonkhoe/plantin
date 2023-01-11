@@ -20,24 +20,30 @@ import com.winston.plantin.utility.Session;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+    private static Fragment homeFragment = new HomeFragment();
+    private static Fragment favoriteFragment = new FavoriteFragment();
+    private static Fragment settingsFragment = new SettingFragment();
+    private static Fragment lastFragment = homeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(lastFragment);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()){
                 case R.id.home:
-                    replaceFragment(new HomeFragment());
+                    lastFragment = homeFragment;
                     break;
                 case R.id.favorite:
-                    replaceFragment(new FavoriteFragment());
+                    lastFragment = favoriteFragment;
                     break;
                 case R.id.settings:
-                    replaceFragment(new SettingFragment());
+                    lastFragment  = settingsFragment;
                     break;
             }
+            replaceFragment(lastFragment);
             return true;
         });
     }
