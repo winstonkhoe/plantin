@@ -74,9 +74,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout_btn:
                 logout();
                 break;
-            case R.id.favorite_page_btn:
-                redirect();
-                break;
             case R.id.setting_btn:
                 setting();
                 break;
@@ -86,10 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setting() {
         replaceFragment(new SettingFragment());
-    }
-
-    private void redirect(){
-        replaceFragment(new FavoriteFragment());
     }
 
     private void logout(){
